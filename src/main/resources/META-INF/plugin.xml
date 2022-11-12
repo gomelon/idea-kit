@@ -1,0 +1,52 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>com.github.gomelon.idea-kit</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>GoMelonKit</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor email="312891416@qq.com" url="https://github.com/gomelon/idea-kit">GoMelon</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <description>A kit for GoMelon. Provide meta highlighting,completion,inspection feature.</description>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <!-- Requires the platform module to distinguish it from a legacy plugin -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
+    <depends>org.jetbrains.plugins.go</depends>
+
+    <resource-bundle>messages.GoMelonBundle</resource-bundle>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+        <!--        <projectService serviceImplementation="com.github.gomelon.ideakit.service.MetaModificationTracker"/>-->
+
+        <annotator language="go"
+                   implementationClass="com.github.gomelon.ideakit.highlighting.MetaCommentHighlighterAnnotator"/>
+
+        <localInspection language="go" groupPath="Go" shortName="MetaInspection"
+                         bundle="messages.GoMelonBundle" displayName="MetaInspection"
+                         groupBundle="messages.GoMelonBundle" groupName="Probable bugs"
+                         enabledByDefault="true" level="ERROR"
+                         implementationClass="com.github.gomelon.ideakit.inspection.MetaInspection"/>
+        <!--                         unfair="true"-->
+        <editorFactoryDocumentListener
+                implementation="com.github.gomelon.ideakit.listener.MetaDeclarationDocumentChangeListener"/>
+
+        <completion.contributor language="go"
+                                implementationClass="com.github.gomelon.ideakit.completion.MetaCompletionContributor"/>
+    </extensions>
+    <applicationListeners>
+        <listener class="com.github.gomelon.ideakit.listener.MetaBulkFileListener"
+                  topic="com.intellij.openapi.vfs.newvfs.BulkFileListener"/>
+    </applicationListeners>
+
+</idea-plugin>
