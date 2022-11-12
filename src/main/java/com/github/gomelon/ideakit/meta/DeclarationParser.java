@@ -40,7 +40,7 @@ public class DeclarationParser {
     }
 
     public static String getQualifyName(String text) {
-        if (text.indexOf('+') != 0) {
+        if (StringUtils.indexOf(text, '+') != 0) {
             return "";
         }
         String[] parts = org.apache.commons.lang3.StringUtils.split(text.substring(1), " ", 2);

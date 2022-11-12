@@ -33,13 +33,12 @@ public class MetaCompletionProvider extends CompletionProvider<CompletionParamet
     protected void addCompletions(@NotNull CompletionParameters parameters,
                                   @NotNull ProcessingContext context,
                                   @NotNull CompletionResultSet resultSet) {
-        PsiElement position = parameters.getPosition();
+        PsiElement position = parameters.getOriginalPosition();
         if (!(position instanceof PsiComment)) {
             return;
         }
         PsiComment psiComment = (PsiComment) position;
         String text = psiComment.getText();
-        text = StringUtils.removeEnd(text, "IntellijIdeaRulezzz ");
         if (!CommentUtils.maybeMeta(psiComment)) {
             return;
         }
