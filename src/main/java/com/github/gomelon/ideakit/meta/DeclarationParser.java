@@ -1,6 +1,5 @@
 package com.github.gomelon.ideakit.meta;
 
-import com.github.gomelon.ideakit.utils.CommentUtils;
 import com.goide.psi.GoFieldDeclaration;
 import com.goide.psi.GoFieldDefinition;
 import com.goide.psi.GoFile;

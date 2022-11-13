@@ -52,8 +52,7 @@ public class MetaParserCompletionListener extends MetaParserBaseListener {
 
     @Override
     public void exitMetaQualifyName(MetaParser.MetaQualifyNameContext ctx) {
-        // 去掉前面的+号
-        String qualifyName = ctx.getText().substring(1);
+        String qualifyName = ctx.getText();
         Optional<Declaration> decl = declarationCache.get(qualifyName);
         decl.ifPresent(declaration -> this.decl = declaration);
         lastSubText = qualifyName;

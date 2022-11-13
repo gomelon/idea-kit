@@ -1,8 +1,9 @@
-package com.github.gomelon.ideakit.utils;
+package com.github.gomelon.ideakit.meta;
 
 import com.goide.GoCommentsConverter;
 import com.intellij.psi.PsiComment;
 import com.intellij.psi.PsiElement;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -47,25 +48,34 @@ public class CommentUtils {
     }
 
     public static boolean isMetaDeclaration(String comment) {
-        if (null == comment) {
+        if (StringUtils.isBlank(comment)) {
             return false;
         }
         String c = comment.trim();
-        return c.startsWith("+Meta");
+        if (!c.startsWith(Constants.META_FLAG)) {
+            return false;
+        }
+        c = c.substring(Constants.META_FLAG.length()).trim();
+        return c.startsWith(Constants.META_DECL);
     }
 
     public static boolean maybeMetaDeclaration(String text) {
-        if (null == text) {
+        if (StringUtils.isBlank(text)) {
             return false;
         }
-        return text.contains("+Meta");
+        int flagIndex = text.indexOf(Constants.META_FLAG);
+        if (flagIndex < 0) {
+            return false;
+        }
+        int qualifyNameIndex = text.indexOf(Constants.META_DECL);
+        return qualifyNameIndex > flagIndex;
     }
 
     public static boolean maybeMeta(String text) {
-        if (null == text) {
+        if (StringUtils.isBlank(text)) {
             return false;
         }
-        return text.trim().startsWith("+");
+        return text.trim().startsWith(Constants.META_FLAG);
     }
 
     public static boolean maybeMeta(PsiComment psiComment) {

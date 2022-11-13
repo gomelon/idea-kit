@@ -2,10 +2,10 @@ package com.github.gomelon.ideakit.completion;
 
 import com.github.gomelon.ideakit.antlr.MetaLexer;
 import com.github.gomelon.ideakit.antlr.MetaParser;
+import com.github.gomelon.ideakit.meta.CommentUtils;
 import com.github.gomelon.ideakit.meta.Declaration;
 import com.github.gomelon.ideakit.meta.DeclarationCache;
 import com.github.gomelon.ideakit.meta.DeclarationCacheManager;
-import com.github.gomelon.ideakit.utils.CommentUtils;
 import com.goide.GoIcons;
 import com.intellij.codeInsight.completion.CompletionParameters;
 import com.intellij.codeInsight.completion.CompletionProvider;

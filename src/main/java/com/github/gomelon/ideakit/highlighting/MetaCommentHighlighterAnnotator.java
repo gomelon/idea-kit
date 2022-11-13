@@ -4,10 +4,10 @@ import com.github.gomelon.ideakit.antlr.MetaLexer;
 import com.github.gomelon.ideakit.antlr.MetaParser;
 import com.github.gomelon.ideakit.antlr.MetaParserBaseListener;
 import com.github.gomelon.ideakit.antlr.MetaParserListener;
+import com.github.gomelon.ideakit.meta.CommentUtils;
 import com.github.gomelon.ideakit.meta.DeclarationCache;
 import com.github.gomelon.ideakit.meta.DeclarationCacheManager;
 import com.github.gomelon.ideakit.meta.DeclarationParser;
-import com.github.gomelon.ideakit.utils.CommentUtils;
 import com.intellij.lang.annotation.AnnotationHolder;
 import com.intellij.lang.annotation.Annotator;
 import com.intellij.lang.annotation.HighlightSeverity;
@@ -22,8 +22,6 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.TokenStream;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -79,11 +77,9 @@ public class MetaCommentHighlighterAnnotator implements Annotator {
         MetaLexer metaLexer = new MetaLexer(inputStream);
         TokenStream tokenStream = new CommonTokenStream(metaLexer);
         MetaParser metaParser = new MetaParser(tokenStream);
-        ParseTree rootContext = metaParser.root();
-
         MetaParserListener listener = new MetaParserHighlightListener(highlights, startOffset);
-        ParseTreeWalker walker = new ParseTreeWalker();
-        walker.walk(listener, rootContext);
+        metaParser.addParseListener(listener);
+        metaParser.root();
         return highlights;
     }
 

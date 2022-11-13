@@ -2,9 +2,9 @@ package com.github.gomelon.ideakit.inspection;
 
 import com.github.gomelon.ideakit.antlr.MetaLexer;
 import com.github.gomelon.ideakit.antlr.MetaParser;
+import com.github.gomelon.ideakit.meta.CommentUtils;
 import com.github.gomelon.ideakit.meta.DeclarationCache;
 import com.github.gomelon.ideakit.meta.DeclarationCacheManager;
-import com.github.gomelon.ideakit.utils.CommentUtils;
 import com.goide.inspections.core.GoInspectionBase;
 import com.goide.inspections.core.GoInspectionMessage;
 import com.goide.inspections.core.GoProblemsHolder;
