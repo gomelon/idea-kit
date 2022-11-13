@@ -46,13 +46,11 @@ public class MetaParserInspectionListener extends MetaParserBaseListener {
 
     @Override
     public void exitMetaQualifyName(MetaParser.MetaQualifyNameContext ctx) {
-        // 去掉前面的+号
         String ctxText = ctx.getText();
-        if (ctxText.length() <= 1) {
+        if (ctxText.length() == 0) {
             throw new NotMetaCancellationException();
         }
-        String qualifyName = ctxText.substring(1);
-        Optional<Declaration> decl = declarationCache.get(qualifyName);
+        Optional<Declaration> decl = declarationCache.get(ctxText);
         if (decl.isPresent()) {
             this.decl = decl.get();
         } else {

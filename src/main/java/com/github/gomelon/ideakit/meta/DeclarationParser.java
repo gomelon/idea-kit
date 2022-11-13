@@ -40,10 +40,11 @@ public class DeclarationParser {
     }
 
     public static String getQualifyName(String text) {
-        if (StringUtils.indexOf(text, '+') != 0) {
+        text = text.trim();
+        if (StringUtils.indexOf(text, '+') != 0 || text.length() == 1) {
             return "";
         }
-        String[] parts = org.apache.commons.lang3.StringUtils.split(text.substring(1), " ", 2);
+        String[] parts = org.apache.commons.lang3.StringUtils.split(text.substring(1).trim(), " ", 2);
         if (parts.length == 0) {
             return "";
         }

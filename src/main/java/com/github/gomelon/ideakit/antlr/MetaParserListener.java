@@ -1,6 +1,5 @@
 // Generated from /home/kimloong/IdeaProjects/idea-kit/idea-kit/src/main/java/com/github/gomelon/ideakit/antlr/MetaParser.g4 by ANTLR 4.10.1
 package com.github.gomelon.ideakit.antlr;
-
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**

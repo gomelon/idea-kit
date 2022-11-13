@@ -8,7 +8,6 @@ import com.github.gomelon.ideakit.utils.CommentUtils;
 import com.goide.inspections.core.GoInspectionBase;
 import com.goide.inspections.core.GoInspectionMessage;
 import com.goide.inspections.core.GoProblemsHolder;
-import com.goide.psi.GoPackageClause;
 import com.goide.psi.GoVisitor;
 import com.intellij.codeInspection.LocalInspectionToolSession;
 import com.intellij.codeInspection.ProblemHighlightType;
@@ -18,7 +17,6 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.TokenStream;
-import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedList;
@@ -32,14 +30,9 @@ public class MetaInspection extends GoInspectionBase {
         return new GoVisitor() {
 
             @Override
-            public void visitPackageClause(@NotNull GoPackageClause o) {
-                super.visitPackageClause(o);
-            }
-
-            @Override
             public void visitComment(@NotNull PsiComment psiComment) {
                 String comment = CommentUtils.extractComment(psiComment);
-                if (!StringUtils.startsWith(comment, "+")) {
+                if (!CommentUtils.maybeMeta(comment)) {
                     return;
                 }
 

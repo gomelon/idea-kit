@@ -10,9 +10,9 @@ root:
     EOF;
 
 singleLine:
-    LINE_COMMENT meta;
+    LINE_COMMENT PLUS meta;
 multipleLine:
-    BLOCK_COMMENT_START meta BLOCK_COMMENT_END ;
+    BLOCK_COMMENT_START PLUS meta BLOCK_COMMENT_END ;
 
 meta:
     metaQualifyName metaBody?;
