@@ -71,7 +71,7 @@ public class MetaParserBaseListener implements MetaParserListener {
      * <p>The default implementation does nothing.</p>
      */
     @Override
-    public void enterMeta(MetaParser.MetaContext ctx) {
+    public void enterMetaBody(MetaParser.MetaBodyContext ctx) {
     }
 
     /**
@@ -80,7 +80,7 @@ public class MetaParserBaseListener implements MetaParserListener {
      * <p>The default implementation does nothing.</p>
      */
     @Override
-    public void exitMeta(MetaParser.MetaContext ctx) {
+    public void exitMetaBody(MetaParser.MetaBodyContext ctx) {
     }
 
     /**
@@ -99,24 +99,6 @@ public class MetaParserBaseListener implements MetaParserListener {
      */
     @Override
     public void exitMetaQualifyName(MetaParser.MetaQualifyNameContext ctx) {
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
-    @Override
-    public void enterMetaBody(MetaParser.MetaBodyContext ctx) {
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
-    @Override
-    public void exitMetaBody(MetaParser.MetaBodyContext ctx) {
     }
 
     /**
@@ -233,7 +215,7 @@ public class MetaParserBaseListener implements MetaParserListener {
      * <p>The default implementation does nothing.</p>
      */
     @Override
-    public void enterNumValue(MetaParser.NumValueContext ctx) {
+    public void enterFloatValue(MetaParser.FloatValueContext ctx) {
     }
 
     /**
@@ -242,7 +224,25 @@ public class MetaParserBaseListener implements MetaParserListener {
      * <p>The default implementation does nothing.</p>
      */
     @Override
-    public void exitNumValue(MetaParser.NumValueContext ctx) {
+    public void exitFloatValue(MetaParser.FloatValueContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
+    public void enterIntegerValue(MetaParser.IntegerValueContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
+    public void exitIntegerValue(MetaParser.IntegerValueContext ctx) {
     }
 
     /**

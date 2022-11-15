@@ -117,11 +117,9 @@ public class DeclarationCache {
         } else {
             filePathToDeclarations = vgoFilePathToDeclarations;
         }
-        Map<String, Declaration> declarations = localFilePathToDeclarations.get(declaration.getFilePath());
-        if (declarations == null) {
-            declarations = new HashMap<>();
-            filePathToDeclarations.put(declaration.getFilePath(), declarations);
-        }
+        Map<String, Declaration> declarations = filePathToDeclarations.computeIfAbsent(
+                declaration.getFilePath(), k -> new HashMap<>()
+        );
         declarations.put(declaration.getName(), declaration);
         qualifyNameToDeclaration.put(declaration.getName(), declaration);
     }

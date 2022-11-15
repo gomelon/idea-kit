@@ -4,6 +4,7 @@ import com.github.gomelon.ideakit.meta.Declaration;
 import com.github.gomelon.ideakit.meta.DeclarationCache;
 import com.github.gomelon.ideakit.meta.DeclarationCacheManager;
 import com.github.gomelon.ideakit.meta.DeclarationParser;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.event.BulkAwareDocumentListener;
 import com.intellij.openapi.editor.event.DocumentEvent;
@@ -28,17 +29,22 @@ public class MetaDeclarationDocumentChangeListener implements BulkAwareDocumentL
     }
 
     private void doChanged(@NotNull Document document) {
-        Collection<Declaration> declarations = DeclarationParser.getInstance().parse(document);
-        VirtualFile virtualFile = FileDocumentManager.getInstance().getFile(document);
-        if (virtualFile == null) {
-            return;
-        }
-        Project project = ProjectLocator.getInstance().guessProjectForFile(virtualFile);
-        if (project == null) {
-            return;
-        }
-        DeclarationCache declarationCache = DeclarationCacheManager.getInstance(project);
-        declarationCache.invalidByFilePath(virtualFile.getPath());
-        declarationCache.putAll(declarations);
+        System.out.println("==========MetaDeclarationDocumentChangeListener.doChanged");
+        ApplicationManager.getApplication().executeOnPooledThread(() ->
+                ApplicationManager.getApplication().runReadAction(() -> {
+                    Collection<Declaration> declarations = DeclarationParser.getInstance().parse(document);
+                    VirtualFile virtualFile = FileDocumentManager.getInstance().getFile(document);
+                    if (virtualFile == null) {
+                        return;
+                    }
+                    Project project = ProjectLocator.getInstance().guessProjectForFile(virtualFile);
+                    if (project == null) {
+                        return;
+                    }
+                    DeclarationCache declarationCache = DeclarationCacheManager.getInstance(project);
+                    declarationCache.invalidByFilePath(virtualFile.getPath());
+                    declarationCache.putAll(declarations);
+                })
+        );
     }
 }

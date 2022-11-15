@@ -122,7 +122,12 @@ public class MetaCommentHighlighterAnnotator implements Annotator {
         }
 
         @Override
-        public void exitNumValue(MetaParser.NumValueContext ctx) {
+        public void exitFloatValue(MetaParser.FloatValueContext ctx) {
+            highlights.add(createHighlight(ctx, startOffset, NUMBER));
+        }
+
+        @Override
+        public void exitIntegerValue(MetaParser.IntegerValueContext ctx) {
             highlights.add(createHighlight(ctx, startOffset, NUMBER));
         }
     }

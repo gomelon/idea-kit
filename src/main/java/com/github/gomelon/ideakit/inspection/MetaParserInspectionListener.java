@@ -125,7 +125,13 @@ public class MetaParserInspectionListener extends MetaParserBaseListener {
     }
 
     @Override
-    public void exitNumValue(MetaParser.NumValueContext ctx) {
+    public void exitFloatValue(MetaParser.FloatValueContext ctx) {
+        String valueStr = ctx.getText();
+        currentFieldValue = new BigDecimal(valueStr);
+    }
+
+    @Override
+    public void exitIntegerValue(MetaParser.IntegerValueContext ctx) {
         String valueStr = ctx.getText();
         currentFieldValue = new BigDecimal(valueStr);
     }

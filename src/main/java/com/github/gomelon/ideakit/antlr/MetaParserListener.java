@@ -50,18 +50,18 @@ public interface MetaParserListener extends ParseTreeListener {
     void exitMultipleLine(MetaParser.MultipleLineContext ctx);
 
     /**
-     * Enter a parse tree produced by {@link MetaParser#meta}.
+     * Enter a parse tree produced by {@link MetaParser#metaBody}.
      *
      * @param ctx the parse tree
      */
-    void enterMeta(MetaParser.MetaContext ctx);
+    void enterMetaBody(MetaParser.MetaBodyContext ctx);
 
     /**
-     * Exit a parse tree produced by {@link MetaParser#meta}.
+     * Exit a parse tree produced by {@link MetaParser#metaBody}.
      *
      * @param ctx the parse tree
      */
-    void exitMeta(MetaParser.MetaContext ctx);
+    void exitMetaBody(MetaParser.MetaBodyContext ctx);
 
     /**
      * Enter a parse tree produced by {@link MetaParser#metaQualifyName}.
@@ -76,20 +76,6 @@ public interface MetaParserListener extends ParseTreeListener {
      * @param ctx the parse tree
      */
     void exitMetaQualifyName(MetaParser.MetaQualifyNameContext ctx);
-
-    /**
-     * Enter a parse tree produced by {@link MetaParser#metaBody}.
-     *
-     * @param ctx the parse tree
-     */
-    void enterMetaBody(MetaParser.MetaBodyContext ctx);
-
-    /**
-     * Exit a parse tree produced by {@link MetaParser#metaBody}.
-     *
-     * @param ctx the parse tree
-     */
-    void exitMetaBody(MetaParser.MetaBodyContext ctx);
 
     /**
      * Enter a parse tree produced by {@link MetaParser#fieldExpr}.
@@ -176,18 +162,32 @@ public interface MetaParserListener extends ParseTreeListener {
     void exitStrValue(MetaParser.StrValueContext ctx);
 
     /**
-     * Enter a parse tree produced by {@link MetaParser#numValue}.
+     * Enter a parse tree produced by {@link MetaParser#floatValue}.
      *
      * @param ctx the parse tree
      */
-    void enterNumValue(MetaParser.NumValueContext ctx);
+    void enterFloatValue(MetaParser.FloatValueContext ctx);
 
     /**
-     * Exit a parse tree produced by {@link MetaParser#numValue}.
+     * Exit a parse tree produced by {@link MetaParser#floatValue}.
      *
      * @param ctx the parse tree
      */
-    void exitNumValue(MetaParser.NumValueContext ctx);
+    void exitFloatValue(MetaParser.FloatValueContext ctx);
+
+    /**
+     * Enter a parse tree produced by {@link MetaParser#integerValue}.
+     *
+     * @param ctx the parse tree
+     */
+    void enterIntegerValue(MetaParser.IntegerValueContext ctx);
+
+    /**
+     * Exit a parse tree produced by {@link MetaParser#integerValue}.
+     *
+     * @param ctx the parse tree
+     */
+    void exitIntegerValue(MetaParser.IntegerValueContext ctx);
 
     /**
      * Enter a parse tree produced by {@link MetaParser#fieldNameExpr}.

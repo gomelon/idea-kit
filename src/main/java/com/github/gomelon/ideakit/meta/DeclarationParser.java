@@ -127,15 +127,17 @@ public class DeclarationParser {
         //references[0]=github.com
         //references[1]=Masterminds
         //references[2]=goutils
-        //references[3]=v1.1.1
-        //references[4]=// indirect
         FileReference[] references = vgoModuleSpec.getReferences();
         if (references.length == 0) {
             return Collections.emptyList();
         }
 
         FileReference lastReference = references[references.length - 1];
-        if (vgoModuleSpec.getText().endsWith("indirect") && !lastReference.getText().endsWith("indirect")) {
+        // 以indirect结尾,但模块名又不叫indirect的
+        String text = vgoModuleSpec.getText();
+        if (!text.startsWith("github.com/gomelon/meta")
+                && text.endsWith("indirect")
+                && !lastReference.getText().endsWith("indirect")) {
             return Collections.emptyList();
         }
 

@@ -10,18 +10,16 @@ root:
     EOF;
 
 singleLine:
-    LINE_COMMENT PLUS meta;
+    LINE_COMMENT metaBody;
 multipleLine:
-    BLOCK_COMMENT_START PLUS meta BLOCK_COMMENT_END ;
+    BLOCK_COMMENT_START metaBody BLOCK_COMMENT_END ;
 
-meta:
-    metaQualifyName metaBody?;
+metaBody:
+    PLUS metaQualifyName fieldExpr*;
 
 metaQualifyName:
     META_QUALIFY_NAME;
 
-metaBody:
-    fieldExpr+;
 fieldExpr:
     fieldNameValueExpr
     |fieldNameExpr;
@@ -31,13 +29,16 @@ fieldName:
     IDENT;
 valueExpr:
     boolValue
-    | numValue
+    | floatValue
+    | integerValue
     | strValue;
 boolValue:
     BOOLEAN;
 strValue:
     STRING;
-numValue:
-    FLOAT|INTEGER;
+floatValue:
+    FLOAT;
+integerValue:
+    INTEGER;
 fieldNameExpr:
     fieldName;
