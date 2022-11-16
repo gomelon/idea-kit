@@ -122,6 +122,7 @@ public class DeclarationParser {
         return result;
     }
 
+    //TODO 这里应该要优化下，如果某个版本已经解析过了，不应该再解析，因为库是不变的
     private Collection<Declaration> parseVgoModule(VgoModuleSpec vgoModuleSpec) {
         //github.com/Masterminds/goutils v1.1.1 // indirect
         //references[0]=github.com
@@ -176,7 +177,8 @@ public class DeclarationParser {
     }
 
     private Collection<Declaration> innerParseGoFile(GoFile goFile) {
-        if (goFile.getName().endsWith("_test.go")) {
+        if (goFile.getName().endsWith("_test.go")
+                || !CommentUtils.maybeMetaDeclaration(goFile.getText())) {
             return Collections.emptyList();
         }
         List<Declaration> result = new LinkedList<>();

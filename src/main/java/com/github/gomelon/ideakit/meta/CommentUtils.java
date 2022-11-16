@@ -52,10 +52,6 @@ public class CommentUtils {
             return false;
         }
         String c = comment.trim();
-        if (!c.startsWith(Constants.META_FLAG)) {
-            return false;
-        }
-        c = c.substring(Constants.META_FLAG.length()).trim();
         return c.startsWith(Constants.META_DECL);
     }
 
@@ -63,12 +59,7 @@ public class CommentUtils {
         if (StringUtils.isBlank(text)) {
             return false;
         }
-        int flagIndex = text.indexOf(Constants.META_FLAG);
-        if (flagIndex < 0) {
-            return false;
-        }
-        int qualifyNameIndex = text.indexOf(Constants.META_DECL);
-        return qualifyNameIndex > flagIndex;
+        return text.contains(Constants.META_DECL);
     }
 
     public static boolean maybeMeta(String text) {

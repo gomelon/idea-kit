@@ -56,6 +56,7 @@ public class MetaCompletionProvider extends CompletionProvider<CompletionParamet
         final String lastSubText = listener.getLastSubText();
         List<LookupElementBuilder> builders = null;
         switch (lastRuleIndex) {
+            //TODO gramer改了，这个进不去了
             case MetaParser.RULE_metaQualifyName:
                 // 临时解决以点结束时,解析出来的qualifyName为没有.
                 String innerLastSubText = text.endsWith(".") ? lastSubText + "." : lastSubText;

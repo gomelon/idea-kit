@@ -36,15 +36,17 @@
                          enabledByDefault="true" level="ERROR"
                          implementationClass="com.github.gomelon.ideakit.inspection.MetaInspection"/>
         <!--                         unfair="true"-->
-        <editorFactoryDocumentListener
-                implementation="com.github.gomelon.ideakit.listener.MetaDeclarationDocumentChangeListener"/>
+        <!--        <editorFactoryDocumentListener-->
+        <!--                implementation="com.github.gomelon.ideakit.listener.MetaDeclarationDocumentChangeListener"/>-->
 
         <completion.contributor language="go"
                                 implementationClass="com.github.gomelon.ideakit.completion.MetaCompletionContributor"/>
+        <vfs.asyncListener implementation="com.github.gomelon.ideakit.listener.MetaAsyncFileListener"/>
     </extensions>
+
     <applicationListeners>
-        <listener class="com.github.gomelon.ideakit.listener.MetaBulkFileListener"
-                  topic="com.intellij.openapi.vfs.newvfs.BulkFileListener"/>
+        <!--        <listener class="com.github.gomelon.ideakit.listener.MetaBulkFileListener"-->
+        <!--                  topic="com.intellij.openapi.vfs.newvfs.BulkFileListener"/>-->
     </applicationListeners>
 
 </idea-plugin>
