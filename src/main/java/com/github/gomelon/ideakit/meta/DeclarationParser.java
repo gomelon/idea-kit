@@ -22,7 +22,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.ResolveResult;
 import com.intellij.psi.impl.source.resolve.reference.impl.providers.FileReference;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -43,7 +43,7 @@ public class DeclarationParser {
         if (StringUtils.indexOf(text, '+') != 0 || text.length() == 1) {
             return "";
         }
-        String[] parts = org.apache.commons.lang3.StringUtils.split(text.substring(1).trim(), " ", 2);
+        String[] parts = StringUtils.split(text.substring(1).trim(), " ", 2);
         if (parts.length == 0) {
             return "";
         }
