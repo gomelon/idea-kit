@@ -29,8 +29,8 @@ public class MetaParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 			new PredictionContextCache();
 	public static final int
-			META_QUALIFY_NAME = 1, BOOLEAN = 2, FLOAT = 3, INTEGER = 4, LINE_COMMENT = 5, BLOCK_COMMENT_START = 6,
-			BLOCK_COMMENT_END = 7, IDENT = 8, WS = 9, STRING = 10, PLUS = 11, ASSIGNMENT = 12,
+			META_QUALIFY_NAME = 1, STRING = 2, BOOLEAN = 3, FLOAT = 4, INTEGER = 5, LINE_COMMENT = 6,
+			BLOCK_COMMENT_START = 7, BLOCK_COMMENT_END = 8, IDENT = 9, WS = 10, PLUS = 11, ASSIGNMENT = 12,
 			DOT = 13, ERRCHAR = 14;
 	public static final int
 			RULE_root = 0, RULE_singleLine = 1, RULE_multipleLine = 2, RULE_metaBody = 3,
@@ -50,16 +50,16 @@ public class MetaParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[]{
-				null, null, null, null, null, "'//'", "'/*'", "'*/'", null, null, null,
+				null, null, null, null, null, null, "'//'", "'/*'", "'*/'", null, null,
 				"'+'", "'='", "'.'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[]{
-				null, "META_QUALIFY_NAME", "BOOLEAN", "FLOAT", "INTEGER", "LINE_COMMENT",
-				"BLOCK_COMMENT_START", "BLOCK_COMMENT_END", "IDENT", "WS", "STRING",
-				"PLUS", "ASSIGNMENT", "DOT", "ERRCHAR"
+				null, "META_QUALIFY_NAME", "STRING", "BOOLEAN", "FLOAT", "INTEGER", "LINE_COMMENT",
+				"BLOCK_COMMENT_START", "BLOCK_COMMENT_END", "IDENT", "WS", "PLUS", "ASSIGNMENT",
+				"DOT", "ERRCHAR"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -211,7 +211,6 @@ public class MetaParser extends Parser {
 		public void enterRule(ParseTreeListener listener) {
 			if (listener instanceof MetaParserListener) ((MetaParserListener) listener).enterSingleLine(this);
 		}
-
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if (listener instanceof MetaParserListener) ((MetaParserListener) listener).exitSingleLine(this);
@@ -295,18 +294,12 @@ public class MetaParser extends Parser {
 	}
 
 	public static class MetaBodyContext extends ParserRuleContext {
-		public TerminalNode PLUS() {
-			return getToken(MetaParser.PLUS, 0);
-		}
-
 		public MetaQualifyNameContext metaQualifyName() {
 			return getRuleContext(MetaQualifyNameContext.class, 0);
 		}
-
 		public List<FieldExprContext> fieldExpr() {
 			return getRuleContexts(FieldExprContext.class);
 		}
-
 		public FieldExprContext fieldExpr(int i) {
 			return getRuleContext(FieldExprContext.class, i);
 		}
@@ -324,7 +317,6 @@ public class MetaParser extends Parser {
 		public void enterRule(ParseTreeListener listener) {
 			if (listener instanceof MetaParserListener) ((MetaParserListener) listener).enterMetaBody(this);
 		}
-
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if (listener instanceof MetaParserListener) ((MetaParserListener) listener).exitMetaBody(this);
@@ -339,20 +331,18 @@ public class MetaParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 				setState(41);
-				match(PLUS);
-				setState(42);
 				metaQualifyName();
-				setState(46);
+				setState(45);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la == IDENT) {
 					{
 						{
-							setState(43);
+							setState(42);
 							fieldExpr();
 						}
 					}
-					setState(48);
+					setState(47);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
@@ -397,7 +387,7 @@ public class MetaParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-				setState(49);
+				setState(48);
 				match(META_QUALIFY_NAME);
 			}
 		} catch (RecognitionException re) {
@@ -441,20 +431,20 @@ public class MetaParser extends Parser {
 		FieldExprContext _localctx = new FieldExprContext(_ctx, getState());
 		enterRule(_localctx, 10, RULE_fieldExpr);
 		try {
-			setState(53);
+			setState(52);
 			_errHandler.sync(this);
 			switch (getInterpreter().adaptivePredict(_input, 2, _ctx)) {
 				case 1:
 					enterOuterAlt(_localctx, 1);
 				{
-					setState(51);
+					setState(50);
 					fieldNameValueExpr();
 				}
 				break;
 				case 2:
 					enterOuterAlt(_localctx, 2);
 				{
-					setState(52);
+					setState(51);
 					fieldNameExpr();
 				}
 				break;
@@ -507,11 +497,11 @@ public class MetaParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-				setState(55);
+				setState(54);
 				fieldName();
-				setState(56);
+				setState(55);
 				match(ASSIGNMENT);
-				setState(57);
+				setState(56);
 				valueExpr();
 			}
 		} catch (RecognitionException re) {
@@ -554,7 +544,7 @@ public class MetaParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-				setState(59);
+				setState(58);
 				match(IDENT);
 			}
 		} catch (RecognitionException re) {
@@ -571,15 +561,12 @@ public class MetaParser extends Parser {
 		public BoolValueContext boolValue() {
 			return getRuleContext(BoolValueContext.class, 0);
 		}
-
 		public FloatValueContext floatValue() {
 			return getRuleContext(FloatValueContext.class, 0);
 		}
-
 		public IntegerValueContext integerValue() {
 			return getRuleContext(IntegerValueContext.class, 0);
 		}
-
 		public StrValueContext strValue() {
 			return getRuleContext(StrValueContext.class, 0);
 		}
@@ -607,34 +594,34 @@ public class MetaParser extends Parser {
 		ValueExprContext _localctx = new ValueExprContext(_ctx, getState());
 		enterRule(_localctx, 16, RULE_valueExpr);
 		try {
-			setState(65);
+			setState(64);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 				case BOOLEAN:
 					enterOuterAlt(_localctx, 1);
 				{
-					setState(61);
+					setState(60);
 					boolValue();
 				}
 				break;
 				case FLOAT:
 					enterOuterAlt(_localctx, 2);
 				{
-					setState(62);
+					setState(61);
 					floatValue();
 				}
 				break;
 				case INTEGER:
 					enterOuterAlt(_localctx, 3);
 				{
-					setState(63);
+					setState(62);
 					integerValue();
 				}
 				break;
 				case STRING:
 					enterOuterAlt(_localctx, 4);
 				{
-					setState(64);
+					setState(63);
 					strValue();
 				}
 				break;
@@ -681,7 +668,7 @@ public class MetaParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-				setState(67);
+				setState(66);
 				match(BOOLEAN);
 			}
 		} catch (RecognitionException re) {
@@ -724,7 +711,7 @@ public class MetaParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-				setState(69);
+				setState(68);
 				match(STRING);
 			}
 		} catch (RecognitionException re) {
@@ -755,7 +742,6 @@ public class MetaParser extends Parser {
 		public void enterRule(ParseTreeListener listener) {
 			if (listener instanceof MetaParserListener) ((MetaParserListener) listener).enterFloatValue(this);
 		}
-
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if (listener instanceof MetaParserListener) ((MetaParserListener) listener).exitFloatValue(this);
@@ -768,7 +754,7 @@ public class MetaParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-				setState(71);
+				setState(70);
 				match(FLOAT);
 			}
 		} catch (RecognitionException re) {
@@ -799,7 +785,6 @@ public class MetaParser extends Parser {
 		public void enterRule(ParseTreeListener listener) {
 			if (listener instanceof MetaParserListener) ((MetaParserListener) listener).enterIntegerValue(this);
 		}
-
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if (listener instanceof MetaParserListener) ((MetaParserListener) listener).exitIntegerValue(this);
@@ -812,7 +797,7 @@ public class MetaParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-				setState(73);
+				setState(72);
 				match(INTEGER);
 			}
 		} catch (RecognitionException re) {
@@ -855,7 +840,7 @@ public class MetaParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-				setState(75);
+				setState(74);
 				fieldName();
 			}
 		} catch (RecognitionException re) {
@@ -869,47 +854,46 @@ public class MetaParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-			"\u0004\u0001\u000eN\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002" +
+			"\u0004\u0001\u000eM\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002" +
 					"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002" +
 					"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002" +
 					"\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b\u0002" +
 					"\f\u0007\f\u0002\r\u0007\r\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000" +
 					"\u0003\u0000!\b\u0000\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0002" +
-					"\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0003\u0001\u0003\u0001\u0003" +
-					"\u0005\u0003-\b\u0003\n\u0003\f\u00030\t\u0003\u0001\u0004\u0001\u0004" +
-					"\u0001\u0005\u0001\u0005\u0003\u00056\b\u0005\u0001\u0006\u0001\u0006" +
-					"\u0001\u0006\u0001\u0006\u0001\u0007\u0001\u0007\u0001\b\u0001\b\u0001" +
-					"\b\u0001\b\u0003\bB\b\b\u0001\t\u0001\t\u0001\n\u0001\n\u0001\u000b\u0001" +
-					"\u000b\u0001\f\u0001\f\u0001\r\u0001\r\u0001\r\u0000\u0000\u000e\u0000" +
-					"\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a\u0000" +
-					"\u0000E\u0000 \u0001\u0000\u0000\u0000\u0002\"\u0001\u0000\u0000\u0000" +
-					"\u0004%\u0001\u0000\u0000\u0000\u0006)\u0001\u0000\u0000\u0000\b1\u0001" +
-					"\u0000\u0000\u0000\n5\u0001\u0000\u0000\u0000\f7\u0001\u0000\u0000\u0000" +
-					"\u000e;\u0001\u0000\u0000\u0000\u0010A\u0001\u0000\u0000\u0000\u0012C" +
-					"\u0001\u0000\u0000\u0000\u0014E\u0001\u0000\u0000\u0000\u0016G\u0001\u0000" +
-					"\u0000\u0000\u0018I\u0001\u0000\u0000\u0000\u001aK\u0001\u0000\u0000\u0000" +
-					"\u001c!\u0003\u0002\u0001\u0000\u001d\u001e\u0003\u0004\u0002\u0000\u001e" +
-					"\u001f\u0005\u0000\u0000\u0001\u001f!\u0001\u0000\u0000\u0000 \u001c\u0001" +
-					"\u0000\u0000\u0000 \u001d\u0001\u0000\u0000\u0000!\u0001\u0001\u0000\u0000" +
-					"\u0000\"#\u0005\u0005\u0000\u0000#$\u0003\u0006\u0003\u0000$\u0003\u0001" +
-					"\u0000\u0000\u0000%&\u0005\u0006\u0000\u0000&\'\u0003\u0006\u0003\u0000" +
-					"\'(\u0005\u0007\u0000\u0000(\u0005\u0001\u0000\u0000\u0000)*\u0005\u000b" +
-					"\u0000\u0000*.\u0003\b\u0004\u0000+-\u0003\n\u0005\u0000,+\u0001\u0000" +
-					"\u0000\u0000-0\u0001\u0000\u0000\u0000.,\u0001\u0000\u0000\u0000./\u0001" +
-					"\u0000\u0000\u0000/\u0007\u0001\u0000\u0000\u00000.\u0001\u0000\u0000" +
-					"\u000012\u0005\u0001\u0000\u00002\t\u0001\u0000\u0000\u000036\u0003\f" +
-					"\u0006\u000046\u0003\u001a\r\u000053\u0001\u0000\u0000\u000054\u0001\u0000" +
-					"\u0000\u00006\u000b\u0001\u0000\u0000\u000078\u0003\u000e\u0007\u0000" +
-					"89\u0005\f\u0000\u00009:\u0003\u0010\b\u0000:\r\u0001\u0000\u0000\u0000" +
-					";<\u0005\b\u0000\u0000<\u000f\u0001\u0000\u0000\u0000=B\u0003\u0012\t" +
-					"\u0000>B\u0003\u0016\u000b\u0000?B\u0003\u0018\f\u0000@B\u0003\u0014\n" +
-					"\u0000A=\u0001\u0000\u0000\u0000A>\u0001\u0000\u0000\u0000A?\u0001\u0000" +
-					"\u0000\u0000A@\u0001\u0000\u0000\u0000B\u0011\u0001\u0000\u0000\u0000" +
-					"CD\u0005\u0002\u0000\u0000D\u0013\u0001\u0000\u0000\u0000EF\u0005\n\u0000" +
-					"\u0000F\u0015\u0001\u0000\u0000\u0000GH\u0005\u0003\u0000\u0000H\u0017" +
-					"\u0001\u0000\u0000\u0000IJ\u0005\u0004\u0000\u0000J\u0019\u0001\u0000" +
-					"\u0000\u0000KL\u0003\u000e\u0007\u0000L\u001b\u0001\u0000\u0000\u0000" +
-					"\u0004 .5A";
+					"\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0003\u0001\u0003\u0005\u0003" +
+					",\b\u0003\n\u0003\f\u0003/\t\u0003\u0001\u0004\u0001\u0004\u0001\u0005" +
+					"\u0001\u0005\u0003\u00055\b\u0005\u0001\u0006\u0001\u0006\u0001\u0006" +
+					"\u0001\u0006\u0001\u0007\u0001\u0007\u0001\b\u0001\b\u0001\b\u0001\b\u0003" +
+					"\bA\b\b\u0001\t\u0001\t\u0001\n\u0001\n\u0001\u000b\u0001\u000b\u0001" +
+					"\f\u0001\f\u0001\r\u0001\r\u0001\r\u0000\u0000\u000e\u0000\u0002\u0004" +
+					"\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a\u0000\u0000D\u0000" +
+					" \u0001\u0000\u0000\u0000\u0002\"\u0001\u0000\u0000\u0000\u0004%\u0001" +
+					"\u0000\u0000\u0000\u0006)\u0001\u0000\u0000\u0000\b0\u0001\u0000\u0000" +
+					"\u0000\n4\u0001\u0000\u0000\u0000\f6\u0001\u0000\u0000\u0000\u000e:\u0001" +
+					"\u0000\u0000\u0000\u0010@\u0001\u0000\u0000\u0000\u0012B\u0001\u0000\u0000" +
+					"\u0000\u0014D\u0001\u0000\u0000\u0000\u0016F\u0001\u0000\u0000\u0000\u0018" +
+					"H\u0001\u0000\u0000\u0000\u001aJ\u0001\u0000\u0000\u0000\u001c!\u0003" +
+					"\u0002\u0001\u0000\u001d\u001e\u0003\u0004\u0002\u0000\u001e\u001f\u0005" +
+					"\u0000\u0000\u0001\u001f!\u0001\u0000\u0000\u0000 \u001c\u0001\u0000\u0000" +
+					"\u0000 \u001d\u0001\u0000\u0000\u0000!\u0001\u0001\u0000\u0000\u0000\"" +
+					"#\u0005\u0006\u0000\u0000#$\u0003\u0006\u0003\u0000$\u0003\u0001\u0000" +
+					"\u0000\u0000%&\u0005\u0007\u0000\u0000&\'\u0003\u0006\u0003\u0000\'(\u0005" +
+					"\b\u0000\u0000(\u0005\u0001\u0000\u0000\u0000)-\u0003\b\u0004\u0000*," +
+					"\u0003\n\u0005\u0000+*\u0001\u0000\u0000\u0000,/\u0001\u0000\u0000\u0000" +
+					"-+\u0001\u0000\u0000\u0000-.\u0001\u0000\u0000\u0000.\u0007\u0001\u0000" +
+					"\u0000\u0000/-\u0001\u0000\u0000\u000001\u0005\u0001\u0000\u00001\t\u0001" +
+					"\u0000\u0000\u000025\u0003\f\u0006\u000035\u0003\u001a\r\u000042\u0001" +
+					"\u0000\u0000\u000043\u0001\u0000\u0000\u00005\u000b\u0001\u0000\u0000" +
+					"\u000067\u0003\u000e\u0007\u000078\u0005\f\u0000\u000089\u0003\u0010\b" +
+					"\u00009\r\u0001\u0000\u0000\u0000:;\u0005\t\u0000\u0000;\u000f\u0001\u0000" +
+					"\u0000\u0000<A\u0003\u0012\t\u0000=A\u0003\u0016\u000b\u0000>A\u0003\u0018" +
+					"\f\u0000?A\u0003\u0014\n\u0000@<\u0001\u0000\u0000\u0000@=\u0001\u0000" +
+					"\u0000\u0000@>\u0001\u0000\u0000\u0000@?\u0001\u0000\u0000\u0000A\u0011" +
+					"\u0001\u0000\u0000\u0000BC\u0005\u0003\u0000\u0000C\u0013\u0001\u0000" +
+					"\u0000\u0000DE\u0005\u0002\u0000\u0000E\u0015\u0001\u0000\u0000\u0000" +
+					"FG\u0005\u0004\u0000\u0000G\u0017\u0001\u0000\u0000\u0000HI\u0005\u0005" +
+					"\u0000\u0000I\u0019\u0001\u0000\u0000\u0000JK\u0003\u000e\u0007\u0000" +
+					"K\u001b\u0001\u0000\u0000\u0000\u0004 -4@";
 	public static final ATN _ATN =
 			new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

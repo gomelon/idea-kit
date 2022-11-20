@@ -177,6 +177,7 @@ public class DeclarationParser {
     }
 
     private Collection<Declaration> innerParseGoFile(GoFile goFile) {
+        //TODO 后续要区分是test定义的还正常代码的
         if (goFile.getName().endsWith("_test.go")
                 || !CommentUtils.maybeMetaDeclaration(goFile.getText())) {
             return Collections.emptyList();
@@ -191,9 +192,8 @@ public class DeclarationParser {
                 continue;
             }
             result.add(declaration);
-            return result;
         }
-        return Collections.emptyList();
+        return result;
     }
 
     private Declaration parseGoType(String filePath, GoTypeSpec goType) {
