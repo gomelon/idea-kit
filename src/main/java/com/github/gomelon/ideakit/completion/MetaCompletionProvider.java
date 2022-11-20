@@ -38,11 +38,12 @@ public class MetaCompletionProvider extends CompletionProvider<CompletionParamet
             return;
         }
         PsiComment psiComment = (PsiComment) position;
-        String text = psiComment.getText();
         if (!CommentUtils.maybeMeta(psiComment)) {
             return;
         }
-
+        String text = psiComment.getText();
+        int textLength = parameters.getOffset() - position.getTextOffset();
+        text = StringUtils.substring(text, 0, textLength);
         DeclarationCache declarationCache = DeclarationCacheManager.getInstance(position.getProject());
         CharStream inputStream = CharStreams.fromString(text);
         MetaLexer metaLexer = new MetaLexer(inputStream);
@@ -56,7 +57,6 @@ public class MetaCompletionProvider extends CompletionProvider<CompletionParamet
         final String lastSubText = listener.getLastSubText();
         List<LookupElementBuilder> builders = null;
         switch (lastRuleIndex) {
-            //TODO gramer改了，这个进不去了
             case MetaParser.RULE_metaQualifyName:
                 // 临时解决以点结束时,解析出来的qualifyName为没有.
                 String innerLastSubText = text.endsWith(".") ? lastSubText + "." : lastSubText;
